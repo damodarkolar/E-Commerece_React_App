@@ -14,7 +14,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 // interface ExpandMoreProps extends IconButtonProps {
 //   expand: boolean;
@@ -23,18 +23,19 @@ import { Link } from 'react-router-dom';
 
 
 export default function RecipeReviewCard(props) {
-const {title, color, price, rating, category,imageBase}=props.item
+
+const {id,title, color, price, rating, category,imageBase}=props.item
   return (
     <Card sx={{ maxWidth: 345, margin:"20px"}} >
-      <CardHeader
-        title = {title}
-        subheader={color}
-      />
       <CardMedia
         component="img"
         height="194"
         image={imageBase}
         alt="Paella dish"
+      />
+      <CardHeader
+        title = {title}
+        subheader={color}
       />
       <CardContent>
         <Typography variant="body2" color="text.secondary">
@@ -46,7 +47,7 @@ const {title, color, price, rating, category,imageBase}=props.item
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <Link to="/product/2">View More</Link>
+        <Link to={`/product/${id}`}>View More</Link>
         <IconButton aria-label="share">
           <ShareIcon />
         </IconButton>

@@ -4,8 +4,9 @@ import RecipeReviewCard from '../components/Card';
 import { Functionalities } from '../components/Functionalities';
 
 export const Home = () => {
+
   const [sort, setSort]=React.useState(null);
-  const [rating, setRating]=React.useState()
+  const [rating, setRating]=React.useState(0.5)
   const [page, setPage]=React.useState(1);
   const [sortType, setSortType]=React.useState("")
 const [itemsData, setItemsData]=React.useState({
@@ -14,13 +15,15 @@ const [itemsData, setItemsData]=React.useState({
   data:[]
 })
 
+
   const token =5;
 const itemsFetch=(url,method,bodyData,header)=>{
+  console.log(sort)
 setItemsData(prev=>({...itemsData,isLoading:true, isErr:false}))
-  fetch(`http://localhost:8080/products?_page=${page}&_limit=12&_sort=price&_order="${sort}`)
+  fetch(`http://localhost:8080/products?_page=${page}&_limit=12&_sort=price&_order=${sort}&rating_gte=${rating}`)
   .then(res=>res.json())
   .then(result=>{
-
+console.log(result)
     setItemsData({
       isLoading:false,
       isErr:false,

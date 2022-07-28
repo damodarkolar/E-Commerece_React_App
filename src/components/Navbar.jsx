@@ -20,8 +20,15 @@ import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import {useNavigate} from "react-router-dom"
+import { useSelect } from '@mui/base';
+import { useDispatch, useSelector } from 'react-redux';
+import { handleLogOut } from '../redux/Auth/actions';
 export default function Navbar() {
 const navigate=useNavigate()
+const {token} =useSelector(state=>state.Auth)
+const dispatch=useDispatch();
+
+
     const [state, setState] = React.useState(false);
 
     const toggleDrawer =(open)=>{
@@ -36,7 +43,7 @@ const navigate=useNavigate()
         >
           <List>          
               <ListItem disablePadding>
-                <ListItemButton>
+                <ListItemButton onClick={()=>navigate("/")}>
                   <ListItemIcon>
                     <HomeIcon/>                    
                   </ListItemIcon>
@@ -46,7 +53,7 @@ const navigate=useNavigate()
           </List>
           <List>          
               <ListItem disablePadding>
-                <ListItemButton >
+                <ListItemButton onClick={()=>navigate("/grocery")} >
                   <ListItemIcon>
                     <LocalGroceryStoreIcon/>                    
                   </ListItemIcon>
@@ -56,7 +63,7 @@ const navigate=useNavigate()
           </List>
           <List>          
               <ListItem disablePadding>
-                <ListItemButton>
+                <ListItemButton onClick={()=>navigate("/pharmacy")}>
                   <ListItemIcon>
                     <MedicationIcon/>                    
                   </ListItemIcon>
@@ -75,7 +82,7 @@ const navigate=useNavigate()
                 </ListItemButton>
               </ListItem>
               <ListItem  disablePadding>
-                <ListItemButton>
+                <ListItemButton onClick={()=>navigate("/login")}>
                   <ListItemIcon>
                     <LoginIcon/>
                   </ListItemIcon>
@@ -83,7 +90,7 @@ const navigate=useNavigate()
                 </ListItemButton>
               </ListItem>
               <ListItem  disablePadding>
-                <ListItemButton>
+                <ListItemButton onClick={()=>dispatch(handleLogOut())}>
                   <ListItemIcon>
                     <LogoutIcon/>
                   </ListItemIcon>
@@ -118,7 +125,7 @@ const navigate=useNavigate()
             
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            News
+            E-Commerce
           </Typography>
           <Button color="inherit" onClick={()=>navigate("/login")}>Login</Button>
         </Toolbar>

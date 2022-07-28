@@ -10,13 +10,13 @@ const logDetails={
     password: "",
 }
 export const Login = () => {
-const [loginData,setLoginData]=React.useState();
+const [loginData,setLoginData]=React.useState(logDetails);
 const dispatch=useDispatch()
-// const {token }=useSelector(state=>state.auth)
-const token=2
+const {token }=useSelector(state=>state.Auth)
+
 const {email, password}=loginData
 const navigate=useNavigate()
-
+console.log(token)
 
 if(!!token){
 navigate("/")
@@ -29,8 +29,10 @@ setLoginData(prev=> ({...loginData,[name]:value}));
 }
 
 const handleLogin=()=>{
-  // dispatch(handleLoginLoading())
-  fetch(``,{
+console.log(loginData)
+
+  dispatch(handleLoginLoading())
+  fetch(`https://reqres.in/api/login`,{
     method:"POST",
     body:JSON.stringify(loginData),
     headers: {
@@ -39,21 +41,26 @@ const handleLogin=()=>{
   })
   .then(res=>res.json())
   .then(data=>{
-    // dispatch(handleLoginSuccess(data))
+    console.log(data.token)
+    dispatch(handleLoginSuccess(data.token))
     navigate("/")
   })
-  // .catch(err=>dispatch(handleLoginErr()))
+  .catch(err=>{
+    dispatch(handleLoginErr())})
+
+
+  setLoginData(logDetails)
 }
 
 
 
 
   return (
-    <div>
-      <Container maxWidth="sm" width="500px" padding="50px 10px 10px 200px">
-          <TextField label="user name" color="secondary" focused />
-      <TextField label="password" color="secondary" focused />
-      <Button variant="contained">Log In</Button>
+    <div style={{display:"flex", justifyContent:"center", alignItems:"center"}}>
+      <Container maxWidth="sm" width="500px" >
+        <TextField onChange={handleOnChange} name="email" value={email}label="user name" color="secondary" focused />
+      <TextField onChange={handleOnChange} label="password" name="password" value={password} color="secondary" focused />
+      <Button onClick={handleLogin} variant="contained">Log In</Button>
       </Container>
     
     </div>
