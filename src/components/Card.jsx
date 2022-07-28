@@ -46,7 +46,7 @@ const {title, color, price, rating, category,imageBase}=props.item
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <Link to="/">View More</Link>
+        <Link to="/product/2">View More</Link>
         <IconButton aria-label="share">
           <ShareIcon />
         </IconButton>

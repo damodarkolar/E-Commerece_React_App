@@ -6,25 +6,23 @@ import React from 'react'
 
 
 
-export const Functionalities = () => {
-const [sort, setSort]=React.useState(null);
-const [rating, setRating]=React.useState()
-const [page, setPage]=React.useState(1);
+export const Functionalities = (probs) => {
 
+const {sort, rating, page, setSort, setPage, setRating, setSortType} =probs.value
 const handleSortClick=(e)=>{
-    console.log(e.target.name)
-    console.log(sort)
     if(e.target.name===sort){
         setSort(null)
     }else{
         setSort(e.target.name)
     }
-    console.log(e.target.name)
 }
 
   return (
     <>
-        <div>
+    <div>
+        
+    </div>
+    <div>
             <Button disabled={page<=1} variant="contained"  onClick={()=>setPage(prev=> prev-1)}>-</Button>
             <Button >{page}</Button>
             <Button variant="contained" onClick={()=>setPage(prev=> prev+1)}>+</Button>
