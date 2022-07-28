@@ -1,5 +1,6 @@
 import { AuthReducer } from "./Auth/authReducer";
 import { legacy_createStore as createStore ,combineReducers} from "redux";
+
 const rootReducer =combineReducers({
     Auth:AuthReducer
 })

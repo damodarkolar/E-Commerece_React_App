@@ -1,13 +1,13 @@
  import {LOGIN_LOADING, LOGIN_SUCCESS, LOGIN_ERR, LOG_OUT } from "./actionTypes"
  
- const handleLoginLoading = () =>{
+ export const handleLoginLoading = () =>{
 
     return {
         type : LOGIN_LOADING
     }
  }
 
- const handleLoginSuccess = (payload) =>{
+ export const handleLoginSuccess = (payload) =>{
 
     return {
         type : LOGIN_SUCCESS,
@@ -15,14 +15,14 @@
     }
  }
 
- const handleLoginErr = () =>{
+ export const handleLoginErr = () =>{
 
     return {
         type : LOGIN_ERR
     }
  }
 
- const handleLogOut = () =>{
+ export const handleLogOut = () =>{
 
     return {
         type : LOG_OUT
