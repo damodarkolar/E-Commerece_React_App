@@ -41,14 +41,13 @@ console.log(loginData)
   })
   .then(res=>res.json())
   .then(data=>{
-    console.log(data.token)
+    console.log(data)
     dispatch(handleLoginSuccess(data.token))
     navigate("/")
   })
   .catch(err=>{
+    console.log(err)
     dispatch(handleLoginErr())})
-
-
   setLoginData(logDetails)
 }
 

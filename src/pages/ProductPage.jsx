@@ -1,18 +1,51 @@
 import { Button, Card, CardActions, CardContent, CardHeader, CardMedia, IconButton, Typography } from '@mui/material';
 import React from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate, useParams } from 'react-router-dom'
+import { AddToCartButton, CartButtons, CheckOutButton, ClearCartButton, DecrementButton, IncrementButton, RemoveFromCartButton } from '../components/CartButtons';
+import { handleGetCart, handleGetCartErr, handleGetCartLoading } from '../redux/Cart/actions';
+import { cartDataFetching } from '../redux/Cart/CartReducer';
 
 export const ProductPage = () => {
     const [item, setItem]=React.useState({});
+    const [itemInCart, setItemInCart]=React.useState(false);
     const {id}=useParams()
-    React.useEffect(()=>{
-       fetch(`http://localhost:8080/products/${id}`)
+    const {title, color, price, description, rating, category, hex, imageBase}=item
+const {cart} =useSelector(state=> state.Cart)
+
+
+    const itemPageItemFetching=(itemid)=>{
+      fetch(`http://localhost:8080/products/${itemid}`)
     .then(res=>res.json())
     .then(data=>setItem(data))
     .catch(err=>console.log(err))
+    }
+
+    
+
+    React.useEffect(()=>{
+      itemPageItemFetching(id);
     },[])
-   
-const {title, color, price, description, rating, category, hex, imageBase}=item
+
+
+
+
+
+
+    React.useEffect(()=>{
+      let result=cart.find(el=>el.id==id)
+      setItemInCart(result)
+    },[cart])
+    const {token}=useSelector(state=>state.Auth);
+    const navigate =useNavigate()
+
+    
+
+    if(!token){
+      console.log("hai")
+      navigate("/")
+    }
+
   return (
     <div style={{display:"flex", justifyContent:"center"}}>
         <Card sx={{ maxWidth: 345, margin:"20px"}} >
@@ -39,13 +72,25 @@ const {title, color, price, description, rating, category, hex, imageBase}=item
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        {
-          (<>
-          <Button variant='contained'>Add to cart</Button>
+        {!!itemInCart?( !!(itemInCart.count-1)?(<>
+        <IncrementButton id={id}/>
+          <Button variant='outlined'>{itemInCart.count} </Button>
+          <DecrementButton  id={id}/>
+        <RemoveFromCartButton id={id}/>
+        </>
+        ):
+        (<>
+          <IncrementButton id={id}/>
+            <Button variant='outlined'>{itemInCart.count} </Button>
+          <RemoveFromCartButton id={id}/>
+          </>
+          )):(<>
+          <AddToCartButton data={item}/>
           </>) 
+          
         }
         
-        <Button variant='contained'>Delete </Button>
+        
       </CardActions>
     </Card>        
     </div>

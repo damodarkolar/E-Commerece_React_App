@@ -36,3 +36,26 @@
     transform: rotate(360deg);
   }
 }
+.cartCard{
+  display:flex;
+  width :1000px;
+  justify-content: space-between;
+  border: 2px solid grey;
+  border-radius: 10px;
+  margin: 10px;
+}
+._orderHistoryCard{
+ 
+  display: flex;
+  flex-direction: column;
+}
+._orderHistoryCard>div{
+  display: flex;
+  justify-content: space-between;
+  width: 800px;
+  border: 2px solid grey;
+  margin: 5px;
+  border-radius: 20px;
+  box-sizing: border-box;
+  padding: 1px 10px 1px 10px;
+}

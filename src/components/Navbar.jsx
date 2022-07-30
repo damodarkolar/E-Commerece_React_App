@@ -23,6 +23,7 @@ import {useNavigate} from "react-router-dom"
 import { useSelect } from '@mui/base';
 import { useDispatch, useSelector } from 'react-redux';
 import { handleLogOut } from '../redux/Auth/actions';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 export default function Navbar() {
 const navigate=useNavigate()
 const {token} =useSelector(state=>state.Auth)
@@ -40,8 +41,7 @@ const dispatch=useDispatch();
           role="presentation"
           onClick={()=>toggleDrawer( false)}
           onKeyDown={()=>toggleDrawer(false)}
-        >
-          <List>          
+        >       
               <ListItem disablePadding>
                 <ListItemButton onClick={()=>navigate("/")}>
                   <ListItemIcon>
@@ -49,9 +49,7 @@ const dispatch=useDispatch();
                   </ListItemIcon>
                   <ListItemText primary={"HOME"} />
                 </ListItemButton>
-              </ListItem>
-          </List>
-          <List>          
+              </ListItem>         
               <ListItem disablePadding>
                 <ListItemButton onClick={()=>navigate("/grocery")} >
                   <ListItemIcon>
@@ -59,9 +57,7 @@ const dispatch=useDispatch();
                   </ListItemIcon>
                   <ListItemText primary={"GROCERY"} />
                 </ListItemButton>
-              </ListItem>
-          </List>
-          <List>          
+              </ListItem>         
               <ListItem disablePadding>
                 <ListItemButton onClick={()=>navigate("/pharmacy")}>
                   <ListItemIcon>
@@ -70,9 +66,42 @@ const dispatch=useDispatch();
                   <ListItemText primary={"PHARMACY"} />
                 </ListItemButton>
               </ListItem>
-          </List>
           <Divider />
-          <List>
+          { !!token ?
+            (<>
+            <List>
+              <ListItem  disablePadding>
+            <ListItemButton onClick={()=>navigate("/cart")}>
+              <ListItemIcon>
+              <ShoppingCartIcon/>
+              </ListItemIcon>
+              <ListItemText primary={"Cart"} />
+            </ListItemButton>
+          </ListItem>  
+            </List>
+            <List>
+              <ListItem  disablePadding>
+            <ListItemButton onClick={()=>navigate("/orderHistory")}>
+              <ListItemIcon>
+              <ShoppingCartIcon/>
+              </ListItemIcon>
+              <ListItemText primary={"Order History"} />
+            </ListItemButton>
+          </ListItem>  
+            </List>
+              <List>
+                <ListItem  disablePadding>
+              <ListItemButton onClick={()=>dispatch(handleLogOut())}>
+                <ListItemIcon>
+                  <LogoutIcon/>
+                </ListItemIcon>
+                <ListItemText primary={"Log Out"} />
+              </ListItemButton>
+            </ListItem>  
+              </List>
+            </>
+            ):
+            (<List>
               <ListItem  disablePadding>
                 <ListItemButton>
                   <ListItemIcon>
@@ -89,15 +118,12 @@ const dispatch=useDispatch();
                   <ListItemText primary={"Login "} />
                 </ListItemButton>
               </ListItem>
-              <ListItem  disablePadding>
-                <ListItemButton onClick={()=>dispatch(handleLogOut())}>
-                  <ListItemIcon>
-                    <LogoutIcon/>
-                  </ListItemIcon>
-                  <ListItemText primary={"Log Out"} />
-                </ListItemButton>
-              </ListItem>
-          </List>
+              </List>)
+
+          }
+            
+            
+                
         </Box>
       );
     
@@ -122,12 +148,17 @@ const dispatch=useDispatch();
             sx={{ mr: 2 }}
           >
             <MenuIcon />
-            
           </IconButton>
+          <Button color="inherit" onClick={()=>navigate("/")}>{<HomeIcon/>}</Button>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             E-Commerce
           </Typography>
-          <Button color="inherit" onClick={()=>navigate("/login")}>Login</Button>
+          {
+            !!token ? (<><Button color="inherit" onClick={()=>navigate("/cart")}>{<ShoppingCartIcon/>}</Button>
+            <Button color="inherit" onClick={()=>dispatch(handleLogOut())}>Log Out</Button></>):
+            (<Button color="inherit" onClick={()=>navigate("/login")}>Login</Button>)
+          }
+          
         </Toolbar>
       </AppBar>
     </Box>

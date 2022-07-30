@@ -14,27 +14,24 @@ switch (type) {
             loginLoading:true,
             loginErr:false,
         }
-        case LOGIN_SUCCESS:
+    case LOGIN_SUCCESS:
             return {
                 ...store,
                 loginLoading:false,
                 loginErr:false,
-                token:payload.data.token
+                token:payload
             }
-            case LOGIN_ERR:
+    case LOGIN_ERR:
                 return {
                     ...store,
                     loginLoading:false,
                     loginErr:true,
                 }
-                case LOG_OUT:
+    case LOG_OUT:
                 return {
                     ...store,
                     token:""
                 }
-            
-
-
     default:
         return{
             ...store
