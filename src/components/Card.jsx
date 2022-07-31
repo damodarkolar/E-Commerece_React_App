@@ -17,7 +17,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Button } from '@mui/material';
-
+import { useEffect } from 'react';
 // interface ExpandMoreProps extends IconButtonProps {
 //   expand: boolean;
 // }
@@ -29,11 +29,13 @@ export default function RecipeReviewCard(props) {
   const {token}=useSelector(state=>state.Auth)
   const {cart}=useSelector(state=>state.Cart)
   const navigate=useNavigate()
-
+useEffect(() => {
   if(!token){
-    console.log("hai")
     navigate("/")
   }
+}, [])
+
+  
 
 const {id,title, color, price, rating, category,imageBase}=props.item
   return (

@@ -18,12 +18,10 @@ const [itemsData, setItemsData]=React.useState({
 
   const token =5;
 const itemsFetch=(url,method,bodyData,header)=>{
-  console.log(sort)
 setItemsData(prev=>({...itemsData,isLoading:true, isErr:false}))
   fetch(`http://localhost:8080/products?_page=${page}&_limit=12&_sort=price&_order=${sort}&rating_gte=${rating}`)
   .then(res=>res.json())
   .then(result=>{
-console.log(result)
     setItemsData({
       isLoading:false,
       isErr:false,
@@ -38,7 +36,6 @@ console.log(result)
 
 React.useEffect(() => {
   itemsFetch( `http://localhost:8080/products`,"GET",null,null,page, sort)
-  console.log(sort)
 }, [sort,rating,page, sortType])
 
 const value={sort,setSort, rating,setRating,page,setPage, sortType, setSortType}

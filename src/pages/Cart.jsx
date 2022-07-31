@@ -10,9 +10,14 @@ export const Cart = () => {
   const navigate=useNavigate();
 const {token}=useSelector(state=> state.Auth)
  
-if(!token){
+
+React.useEffect(() => {
+  if(!token){
   navigate("/")
 }
+}, [])
+
+
 let total=0
 let itemsCount=0
   return !!getCartLoading ? (<h1>Cart is Loading</h1>): !!getCartErr?(<h1>Something wrong.. </h1>):!!cart.length?(
