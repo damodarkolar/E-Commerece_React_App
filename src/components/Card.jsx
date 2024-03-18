@@ -60,7 +60,7 @@ const {id,title, color, price, rating, category,imageBase}=props.item
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-      {!!token ?  (<Button/>):
+      {!!token ?  (<Link to={`/product/${id}`}>View More</Link>):
         (<Link to={`/product/${id}`}>View More</Link>)        
         
       }

@@ -41,7 +41,6 @@ console.log(loginData)
   })
   .then(res=>res.json())
   .then(data=>{
-    console.log(data)
     dispatch(handleLoginSuccess(data.token))
     navigate("/")
   })

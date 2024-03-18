@@ -97,8 +97,6 @@ const {cart} =useSelector(state=> state.Cart)
           </>) 
           
         }
-        
-        
       </CardActions>
     </Card>        
     </div>

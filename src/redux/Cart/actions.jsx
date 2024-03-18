@@ -177,13 +177,13 @@ export const cartDataFetching=()=>(dispatch)=>{
     .catch(err=>dispatch(handleGetOrderHistoryErr()))
   }
 
-export const clearCartFetching =()=>(dispatch)=>{
+export const clearCartFetching =()=>(dispatch, state)=>{
+    const curCart=state().Cart.cart
     dispatch(handleClearCartLoading())
-    fetch(`http://localhost:8080`,{
+    fetch(`http://localhost:8080/cartitems`,{
         method:"PATCH",
-        body:JSON.stringify({
-            cartitems: []
-        }),
+        
+        body:JSON.stringify(),
         headers:{
         "Content-Type": "application/json"
         }
@@ -263,7 +263,6 @@ const item=items.find(ele=>ele.id==id)
 }
 
 export const decProductFetching=(id)=>(dispatch,state)=>{
-
     const items=state().Cart.cart
     const item=items.find(ele=>ele.id==id)
         fetch(`http://localhost:8080/cartitems/${id}`,{
